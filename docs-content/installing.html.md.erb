@@ -3,26 +3,27 @@ title: Installing and Configuring Zettaset XCrypt Archive for BOSH Backup and Re
 owner: Partners
 ---
 
-This topic describes how to install and configure Zettaset XCrypt Archive.
+This topic describes how to install and configure Zettaset XCrypt Archive for BBR.
 
 
-##<a id='install'></a> Install Zettaset XCrypt Archive
+##<a id='install'></a> Install Zettaset XCrypt Archive for BBR
 
-Your Greenplum and Pivotal Gemfire primary, seconday, and segment nodes should be installed prior to installing Zettaset XCrypt Archive for BOSH Backup and Restore. Once Greenplum and Pivotal Gemfire have been successfully installed, install Zettaset XCrypt Archive on all segment nodes that hold data volumes. After the Zettaset installation, data can be populated on the data volumes. 
+Your Greenplum and Pivotal Gemfire primary, seconday, and segment nodes should be installed prior to installing Zettaset XCrypt Archive for BBR. Once Greenplum and Pivotal Gemfire have been successfully installed, install Zettaset XCrypt Archive for BBR on all segment nodes that hold data volumes. After the Zettaset installation, data can be populated on the data volumes. 
 
-For existing Greenplum and Pivotal Gemfire environments, data must be backed up prior to the Zettaset XCrypt Archive installation. After the Zettaset installation, data can be restored to the data volumes. 
+For existing Greenplum and Pivotal Gemfire environments, data must be backed up prior to the Zettaset XCrypt Archive for BBR installation. After the Zettaset installation, data can be restored to the data volumes. 
 
 
-## <a id='installation'></a> Installing XCrypt Archive
+## <a id='installation'></a> Installing XCrypt Archive for BBR
 
-To install XCrypt Archive on your target node, do the following:
+To install XCrypt Archive for BBR on your target node, do the following:
+
 1. Install java:.
 
-        ```
-        $ yum install java-1.7.0-openjdk -y
-        ```
+    ``` 
+    $ yum install java-1.7.0-openjdk -y
+    ``` 
 
-1. Set '$JAVA_HOME'. For example:
+1. Set `$JAVA_HOME`. For example:
 
     ``` 
     $ export JAVA_HOME=/usr/lib/jvm/jre-1.7.0-openjdk
@@ -34,22 +35,22 @@ To install XCrypt Archive on your target node, do the following:
     $ rpm -ivh zts-filecrypto-client-8.4.2.x86_64.rpm
     ``` 
 
-1. Update $JAVA_HOME in /etc/zts/conf.default/set-env.sh.
+1. Update `$JAVA_HOME` in `/etc/zts/conf.default/set-env.sh`.
 
-1. Proceed to [Configuring Connectivity to the Virtual Enterprise Key Manager](#configuring_conn). 
+1. Proceed to [Configuring Connectivity to the Zettaset Virtual Enterprise Key Manager](#configuring_conn). 
 
 
-## <a id='configuring_conn'></a> Configuring Connectivity to the Virtual Enterprise Key Manager
+## <a id='configuring_conn'></a> Configuring Connectivity to the Zettaset Virtual Enterprise Key Manager
 
-To achieve connectivity between the Backup Encryption Tool and the Zettaset Virtual Enterprise Key Manager, do the following:
+To achieve connectivity between XCrypt Archive for BBR and the Zettaset Virtual Enterprise Key Manager (V-EKM), do the following:
 
-1. Create a client certificate and key on the vEKM’s kmip master node by executing the following command:
+1. Create a client certificate and key on the V-EKM’s kmip master node by executing the following command:
 
     ``` 
     $ /usr/share/zts/bin/zts-ca.sh make-user-cert <new_node> -x -o <ca_org_name> -u <ca_org_unit> -e <ca_org_email> -l <ca_org_locale> -s <ca_org_state> -c <ca_org_country>
     ``` 
 
-    Use the same ca_org_* values from the hosts.inv file used for the installation.
+    Use the same `ca_org_*` values from the hosts.inv file used for the V-EKM installation.
     This command will generate a certificate and a key file on the kmip master node:
     * /usr/share/zts/ca/certs/<new_node>-kmipclient.cert.pem
     * /usr/share/zts/ca/private/<new_node>-kmipclient.key.pem
@@ -57,20 +58,18 @@ To achieve connectivity between the Backup Encryption Tool and the Zettaset Virt
 1. Convert the PEM files to JKS using the following command on the kmip master node:
 
     ``` 
-    $ /usr/share/zts/bin/pem2jks.sh -e /usr/share/zts/ca/certs/<new_node>-kmipclient.cert.pem /usr/share/zts/ca/private/<new_node>-kmipclient.key.pem
+    $ /usr/share/zts/bin/pem2jks.sh -e /usr/share/zts/ca/certs/<new_node>-kmipclient.cert.pem /usr/share/zts/ca/private/<new_node>-kmipclient.key.pem /root/<new_node>.jks
     ``` 
-    Record the name of the JKS password. The resulting JKS is stored in /root/<new_node>.jks
+    Record the name of the JKS password. The resulting JKS is stored in `/root/<new_node>.jks`.
 
-1. Copy the CA cert and the jks from the kmip master node to the node running the Backup Encryption Tool:
+1. Copy the CA cert and the jks from the kmip master node to the node running XCrypt Archive for BBR:
 
     ``` 
     $ scp /usr/share/zts/ca/certs/cacert.pem node05:/opt
     $ scp /root/<new_node>.jks node05:/opt
     ``` 
 
-1. Update the kmip properties in /etc/zts/conf.default/kmip.xml with the KmipServer, and KmipPort values from
-your Virtual Enterprise Key Manager, which can be found in /etc/zts/conf.default/kmip-client.properties on the
-kmip master node. Include the JKS password and file location, and the CA cert file location. For example:
+1. Update the kmip properties in `/etc/zts/conf.default/kmip.xml` with the KmipServer, and KmipPort values from your Zettaset Virtual Enterprise Key Manager, which can be found in `/etc/zts/conf.default/kmip-client.properties` on the kmip master node. Include the JKS password and file location, and the CA cert file location. For example:
 
     ``` 
     <kmip>

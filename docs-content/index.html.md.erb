@@ -3,38 +3,51 @@ title: Zettaset XCrypt Archive for BOSH Backup and Restore
 owner: Partners
 ---
 
-<p class="note warning"><strong>WARNING:</strong> The Zettaset XCrypt Archive for BOSH Backup and Restore is intended for evaluation and test purposes only. Do not use this product in a production Pivotal Greenplum or Pivotal Gemfire environment.</p>
+<p class="note warning"><strong>WARNING:</strong> The Zettaset XCrypt Archive for BOSH Backup and Restore (BBR) is intended for evaluation and test purposes only. Do not use this product in a production Cloud Foundry environment.</p>
 
-This documentation describes Zettaset XCrypt Archive for BOSH Backup and Restore. Zettaset XCrypt Archive for BOSH Backup and Restore
- enables disk-level encryption for all nodes in your deployment of Pivotal Greenplum and Pivotal GemFire. Developers can encrypt entire disks or specific partitions, extend encryption to new nodes, rotate keys, and remove encryption as needed. 
+This documentation describes Zettaset XCrypt Archive for BBR. 
 
-Zettaset's Virtual Enterprise Key Manager (V-EKM) and Virtual Hardware Security Module (V-HSM) are available, separately, as scalable, software-based key management and HSM solutions that are fully integrated with XCrypt Full Disk. 
-
+BOSH Backup and Restore provides a framework for the backup and restore of your BOSH deployments in Pivotal Cloud Foundry environments. Those backups contain your critical data and must be protected. Zettaset XCrypt Archive for BBR provides a powerful solution for protecting your Cloud Foundry backups. 
 
 ## <a id='overview'></a> Overview
 
-XCrypt Archive is a high-performance, infinitely scalable, full disk encryption solution which is ideal for bulk encryption of stored data. Zettaset's all-software approach to encryption simplifies deployment and eliminates the need for proprietary appliances. It also makes all Zettaset encryption solutions, including XCrypt Full Disk, ideal for use with Pivotal Greenplum and Pivotal GemFire.
+XCrypt Archive for BBR is a high-performance, software-only backup and restore solution that works with structured and unstructured data. It interoperates with KMIP-compliant key managers, including Zettaset's Virtual Enterprise Key Manager. If you already have a key manager, you can continue to use it. If not, you can use Zettaset's software-only solution. 
 
-XCrypt Archive utilizes Advanced Encryption Standard (AES) 256-bit encryption, the highest level attainable. AES has been adopted by the U.S. government and is now used worldwide. It also provides AES-NI accelerated performance in equipped servers.
+XCrypt Archive for BBR utilizes Advanced Encryption Standard (AES) 256-bit encryption, the highest level attainable. AES has been adopted by the U.S. government and is now used worldwide. It also provides AES-NI accelerated performance in equipped servers.
 
-XCrypt Archive provides proven defense in regulated industries such as healthcare, financial services, and retail from the accelerating frequency and scope of data breaches. When integrated into a strategic IT security initiative, XCrypt Archive can help bring structured and unstructured data stores into compliance with corporate and regulatory data protection initiatives including PCI/DSS, HIPAA, FISMA, and GDPR.
+Zettaset's software-only approach to encryption simplifies deployment and eliminates the need for proprietary appliances. Its configurable key policies and key administration provide the flexibility necessary for your enterprise. It's designed to be deployed on existing commodity hardware, drastically reducing the total cost of ownership compared to proprietary appliance-based solutions. Zettaset's products can be deployed and maintained by existing IT staff and do not require specialized encryption experts. 
 
 
 ## <a id='features'></a>Key Features
 
-Zettaset XCrypt Archive includes the following key features:
+Zettaset XCrypt Archive for BBR includes the following key features:
 
-* All-software solution simplifies deployment, easily scales, and delivers exceptional price/performance.
-* Optimized for superior performance in scale-out distributed computing systems, with near-zero latency: approximately 3%* when measured using TeraSort MapReduce Benchmark.
-* Proven protection for high-volume, high-growth cloud and on-premises data environments.
-* Provides a proven defense for sensitive data in regulated industries such healthcare, financial services, and retail from the accelerating frequency and scope of data breaches. Supports corporate and regulatory compliance initiatives including PCI/DSS, HIPAA, FISMA, and GDPR.
+* **Low Total Cost of Ownership (TCO)**
+
+    Requires no proprietary hardware; it's a software-only encryption solution that can be deployed on commodity and existing hardware - just point and encrypt.
+    Does not require specialized encryption experts on staff. Can be deployed and maintained by existing IT staff.
+
+* **High Performance**
+
+    Negligable performance impact on existing processes. 
+    All data is compressed prior to encryption, saving valuable storage space. 
+
+* **Versatile**
+
+    Secures structured and unstructured data.
+
+* **Interoperable**
+
+    Command line interface simplifies automation and integration.
+    KMIP compatible & PKCS#11 certified. 
+    Compatible with all major key managers and HSMs, including Thales and Gemalto.
 
 
 ## <a id="snapshot"></a> Product Snapshot
 
 <p class='note'><strong>Note:</strong> As of PCF v2.0, Elastic Runtime is renamed Pivotal Application Service (PAS).</p>
 
-The following table provides version and version-support information about Zettaset XCrypt Archive.
+The following table provides version and version-support information about Zettaset XCrypt Archive for BBR.
 
 <table class="nice">
     <th>Element</th>
@@ -76,7 +89,7 @@ The following table provides version and version-support information about Zetta
 
 ## <a id="reqs"></a> Requirements
 
-Zettaset XCrypt Archive has the following requirements:
+Zettaset XCrypt Archive for BBR has the following requirements:
 
 + Java v1.7.0 or greater
 
@@ -84,7 +97,7 @@ Zettaset XCrypt Archive has the following requirements:
 
 + libselinux-python and cryptsetup-luks
 
-+ Zettaset Virtual Enterprise Key Manager (vEKM). To download and install vEKM, contact our [sales team](mailto:sales@zettaset.com).
++ 3rd Party, KMIP-compliant Key Manager or Zettaset's Virtual Enterprise Key Manager (V-EKM). To download and install vEKM, contact our [sales team](mailto:sales@zettaset.com).
 
 
 ## <a id="feedback"></a> Feedback and Support
