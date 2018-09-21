@@ -1,14 +1,14 @@
 ---
-title: Using Zettaset XCrypt Archive for BOSH Backup and Restore
+title: Using Zettaset XCrypt Archive
 owner: Partners
 ---
 
-This topic describes how to use Zettaset XCrypt Archive for BOSH Backup and Restore.
+This topic describes how to use Zettaset XCrypt Archive.
 
 
-## <a id='using'></a> Using XCrypt Archive for BOSH Backup and Restore
+## <a id='using'></a> Using XCrypt Archive
 
-XCrypt Archive for BBR can encrypt any file type. The resulting encrypted files append the zts extension to their original file names. Metadata is created for each encrypted file and stored in the same directory, using the .zts.ztsdata extension. This file contains non-sensitive metadata required for decryption. If the metadata is corrupted, decryption will not be possible. Thus, metadata files must be backed up along with the encrypted files. XCrypt Archive for BBR expects the .zts and .zts.ztsdata files to reside in the same directory.
+XCrypt Archive can encrypt any file type. The resulting encrypted files append the zts extension to their original file names. Metadata is created for each encrypted file and stored in the same directory, using the .zts.ztsdata extension. This file contains non-sensitive metadata required for decryption. If the metadata is corrupted, decryption will not be possible. Thus, metadata files must be backed up along with the encrypted files. XCrypt Archive expects the .zts and .zts.ztsdata files to reside in the same directory.
 
 Use the following command to encrypt and decrypt files and directories:
 
@@ -38,7 +38,7 @@ Creates a single archive for all encrypted files. Each file is compressed using 
 The name of the archive file created with the `--tar` option is used.
 
 `--work-dir`
-A working directory that will store intermediate files when using the `--tar` option. This directory must be on a file system that contains enough space to store the largest input file. When decrypting a tar archive, the working directory must have enough space to store all of the decrypted files when they are temporarily extracted from the tar file. The path specified must be a non-existing directory; XCrypt Archive for BBR will create the directory and then delete it when the process is complete.
+A working directory that will store intermediate files when using the `--tar` option. This directory must be on a file system that contains enough space to store the largest input file. When decrypting a tar archive, the working directory must have enough space to store all of the decrypted files when they are temporarily extracted from the tar file. The path specified must be a non-existing directory; XCrypt Archive will create the directory and then delete it when the process is complete.
 
 `--blocksize`
 The cryptographic block size to use when encrypting. This setting is optional, the default block size is 5 Megabytes (5242880 bytes). Values must be specified in bytes. There is no need to specify block size when decrypting.
